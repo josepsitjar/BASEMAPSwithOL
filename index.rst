@@ -177,4 +177,4 @@ And, at the end of the document, add the interaction:
     this.getFeatures().clear();
   });
 
-map.addInteraction(selectInteraction);
+  map.addInteraction(selectInteraction);
