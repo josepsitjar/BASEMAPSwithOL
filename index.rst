@@ -49,3 +49,16 @@ In this way, only a small fraction of a large set of data is served to the user,
 
 .. figure:: ./_static/teselas_raster.jpeg
 	:align: center
+
+
+On the other side, in vector tiles, the styles are rendered on the client browser (they are not pregenerated). Offer an inifity zoom capacity, and as vector data is available on the client, maps can be represented with a lot of resolution.
+Also the client has acces to he information of geographic objects (attributs and geometry), as are not images, but vector entities.
+
+
+Initializing a web mapping project
+==================================
+
+We are going to use the OpenLayers library: https://openlayers.org
+
+.. note::
+   Leaflet and OpenLayers allow Vector Tiles and Raster Tiles layers. But Leaflet doesn't incorporates the capacity to interpret styles generated with the **Vector Tile GL** Mapbox specification, and must be created according to the library specification, which doesn't allows to integrate a style generated with ContextMaps (ICGC) or Mapbox.
