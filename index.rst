@@ -149,3 +149,32 @@ We can add multiple layers to OpenLayers. For example, a marker, and apply later
 
 Adding interaction
 ====================
+
+
+In order to add interaction, for example, when select the marker, import ``Select`` and ``click``:
+
+.. code-block:: javascript
+
+  import Select from 'ol/interaction/Select';
+  import {click} from 'ol/events/condition';
+
+And, at the end of the document, add the interaction:
+
+
+.. code-block:: javascript
+
+  // Interaction
+  var selectInteraction = new Select({
+    condition: click,
+    layers: [layer],
+    style: markerStyle
+  });
+
+
+  selectInteraction.on('select', function (evt) {
+    alert('click over marker');
+    // clear the selection to allow select again later
+    this.getFeatures().clear();
+  });
+
+map.addInteraction(selectInteraction);
