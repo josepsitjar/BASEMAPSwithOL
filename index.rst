@@ -36,3 +36,16 @@ Mosquito Alert: http://www.mosquitoalert.com/ca/
    b) Apply the corresponding styles
    c) Allocate the datasets
    d) Optimally serve the cartography
+
+
+Vector Tiles vs Raster Tiles
+=============================
+
+Actually (and leaving out the OGC services) there are basically two ways to generate base maps: Vector Tiles and Raster Tiles.
+
+Using raster tiles, the map is not stored in a single image. Small regular tiles are **pregenerated** for each zoom level, and are combined to form the entier map.
+In this way, only a small fraction of a large set of data is served to the user, guaranteeing a better speed in the delivery of data on a web environment.
+
+
+.. figure:: ./_static/teselas_raster.jpeg
+	:align: center
