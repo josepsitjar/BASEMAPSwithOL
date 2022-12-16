@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 80vh;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+    <script src="olms.js"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <h2>Cartografia de referencia amb OL</h2>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+
+
+    olms(
+      'map',
+      'https://geoserveis.icgc.cat/contextmaps/icgc_geologic_informacio.json'
+    ).then(function (map) {
+
+
+      var markerStyle = new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 7,
+          fill: new ol.style.Fill({color: 'red'}),
+          stroke: new ol.style.Stroke({color: 'white', width: 3})
+        })
+      });
+
+
+      var layer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+         features: [
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([2.8, 41.9]))
+             })
+         ]
+      }),
+      style: markerStyle
+      });
+      map.addLayer(layer);
+      map.getView().setCenter(ol.proj.fromLonLat([2.8, 41.9]));
+
+    });
+
+
+
+    </script>
+  </body>
+</html>

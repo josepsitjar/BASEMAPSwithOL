@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 80vh;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+    <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <h2>Cartografia de referencia amb OL</h2>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+
+      var mapboxLayer = new ol.source.XYZ({
+        attributions: 'mapbox',
+        url: 'https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZXBzaXRqYXIiLCJhIjoiNXhaUDE0byJ9.f72o2M2gG-g0TqZlIemYvg',
+        maxZoom: 20,
+        crossOrigin: '',
+      });
+
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: mapboxLayer
+          }),
+          /*
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+          */
+        ],
+        view: new ol.View({
+          center: [326538, 5098757], // per defecte, s'usa la projecció Web Mercator (EPSG:3857)
+          zoom: 10
+        })
+      });
+
+
+      var markerStyle = new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 7,
+          fill: new ol.style.Fill({color: 'red'}),
+          stroke: new ol.style.Stroke({color: 'white', width: 3})
+        })
+      });
+
+      var layer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+           features: [
+               new ol.Feature({
+                   geometry: new ol.geom.Point(ol.proj.fromLonLat([2.8, 41.9]))
+               })
+           ]
+        }),
+        style: markerStyle
+      });
+      map.addLayer(layer);
+
+
+
+
+    </script>
+  </body>
+</html>
