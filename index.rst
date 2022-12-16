@@ -92,22 +92,60 @@ We can add multiple layers to OpenLayers. For example, a marker, and apply later
 
 .. code-block:: javascript
 
-    var markerStyle = new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 7,
-        fill: new ol.style.Fill({color: 'red'}),
-        stroke: new ol.style.Stroke({color: 'white', width: 3})
-      })
-    });
+  import './style.css';
+  import {Map, View} from 'ol';
+  import TileLayer from 'ol/layer/Tile';
+  import OSM from 'ol/source/OSM';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Fill from 'ol/style/Fill';
+  import Circle from 'ol/geom/Circle';
+  import CircleStyle from 'ol/style/Circle';
+  import VectorLayer from 'ol/layer/Vector';
+  import VectorSource from 'ol/source/Vector';
+  import Point from 'ol/geom/Point';
+  import Feature from 'ol/Feature';
+  import * as olProj from 'ol/proj';
 
-    var layer = new ol.layer.Vector({
-      source: new ol.source.Vector({
-         features: [
-             new ol.Feature({
-                 geometry: new ol.geom.Point(ol.proj.fromLonLat([2.8, 41.9]))
-             })
-         ]
+
+  const map = new Map({
+    target: 'map',
+    layers: [
+      new TileLayer({
+        source: new OSM()
+      })
+    ],
+    view: new View({
+      center: [0, 0],
+      zoom: 2
+    })
+  });
+
+
+  var markerStyle = new Style({
+    image: new CircleStyle({
+      fill: new Fill({
+        color: 'red'
       }),
-      style: markerStyle
-    });
-    map.addLayer(layer);
+      stroke: new Stroke({
+        color: 'yellow'
+      }),
+      radius: 10
+    })
+  });
+
+  var layer = new VectorLayer({
+    source: new VectorSource({
+       features: [
+           new Feature({
+               geometry: new Point(new olProj.fromLonLat([2.8, 41.9]))
+           })
+       ]
+    }),
+    style: markerStyle
+
+  });
+  map.addLayer(layer);
+
+Adding interaction
+====================
