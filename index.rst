@@ -62,3 +62,52 @@ We are going to use the OpenLayers library: https://openlayers.org
 
 .. note::
    Leaflet and OpenLayers allow Vector Tiles and Raster Tiles layers. But Leaflet doesn't incorporates the capacity to interpret styles generated with the **Vector Tile GL** Mapbox specification, and must be created according to the library specification, which doesn't allows to integrate a style generated with ContextMaps (ICGC) or Mapbox.
+
+
+In order to work on an OpenLayers Project, it's recomended to use **Node.js**.
+
+Working with Node offer's some advantages:
+
+1. Work with modules, so it's not necessary to load all the library.
+2. Offer's a local development server.
+3. Used by the OpenLayers demonstration page.
+
+Follow this instructions to initialize an OpenLayers project with NOde:
+
+.. code-block:: console
+
+  mkdir mapa
+  cd mapa
+  npx create-ol-app
+  npm start
+
+
+This will automatically create the aplication, separating the html, js and css files. Open this files with a code editor as Atom or VisualStudio and inspect them.
+To visualize the map, just copy the url on a browser.
+
+Adding layers to map
+=====================
+
+We can add multiple layers to OpenLayers. For example, a marker, and apply later a style to it. Use the following code:
+
+.. code-block:: javascript
+
+    var markerStyle = new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 7,
+        fill: new ol.style.Fill({color: 'red'}),
+        stroke: new ol.style.Stroke({color: 'white', width: 3})
+      })
+    });
+
+    var layer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+         features: [
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([2.8, 41.9]))
+             })
+         ]
+      }),
+      style: markerStyle
+    });
+    map.addLayer(layer);
