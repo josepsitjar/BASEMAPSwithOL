@@ -47,5 +47,5 @@ Using raster tiles, the map is not stored in a single image. Small regular tiles
 In this way, only a small fraction of a large set of data is served to the user, guaranteeing a better speed in the delivery of data on a web environment.
 
 
-.. figure:: ./_static/teselas_raster.jpeg
+.. figure:: /_static/teselas_raster.jpeg
 	:align: center
