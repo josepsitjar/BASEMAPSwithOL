@@ -232,3 +232,108 @@ In this example, we are using the **streets-v11** Mapbox layer. But we cal use o
   url: 'https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}?access_token=yourToken',
 
 Or others available at: https://docs.mapbox.com/api/maps/styles/
+
+
+Mapbox Base Layers (Vector Tiles)
+=================================
+
+Mapbox offers the possibility to create Vector Tiles. This is useful to configure the styles according to our needs. Using Vector Tiles we'll not be restricted to a predefined style.
+
+From OL, in order to load a Vector Tiles layer with our predefined styles created with **Mapbox Studio**, there are different options.
+This is an example using the ol-mabox-style library (https://github.com/openlayers/ol-mapbox-style)
+
+Install the library:
+
+.. code-block:: console
+
+  npm install ol-mapbox-style
+
+Then use the following code:
+
+.. code-block:: javascript
+
+  import './style.css';
+  import {Map, View} from 'ol';
+  import TileLayer from 'ol/layer/Tile';
+  import OSM from 'ol/source/OSM';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Fill from 'ol/style/Fill';
+  import Circle from 'ol/geom/Circle';
+  import CircleStyle from 'ol/style/Circle';
+  import VectorLayer from 'ol/layer/Vector';
+  import VectorSource from 'ol/source/Vector';
+  import Point from 'ol/geom/Point';
+  import Feature from 'ol/Feature';
+  import * as olProj from 'ol/proj';
+  import {fromLonLat} from 'ol/proj';
+
+  import Select from 'ol/interaction/Select';
+  import {click} from 'ol/events/condition';
+
+  import XYZ from 'ol/source/XYZ';
+
+  import {apply} from 'ol-mapbox-style';
+
+  apply('map',
+        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=pk.eyJ1IjoibWFwZXNiYXNlc2lndGUiLCJhIjoiY2s2Y2F4YnB5MDk4ZjNvb21rcWEzMHZ4NCJ9.oVtnggRtmtUL7GBav8Kstg'
+        ).then(function(map){
+
+        });
+
+Extra content: Edit a map created with ol-mapbox-style
+======================================================
+
+We can add layers and functionalities to the map created with ol-mapbox-style.
+Just a simple example:
+
+.. code-block:: javascript
+
+  import './style.css';
+  import {Map, View} from 'ol';
+  import TileLayer from 'ol/layer/Tile';
+  import OSM from 'ol/source/OSM';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Fill from 'ol/style/Fill';
+  import Circle from 'ol/geom/Circle';
+  import CircleStyle from 'ol/style/Circle';
+  import VectorLayer from 'ol/layer/Vector';
+  import VectorSource from 'ol/source/Vector';
+  import Point from 'ol/geom/Point';
+  import Feature from 'ol/Feature';
+  import * as olProj from 'ol/proj';
+  import {fromLonLat} from 'ol/proj';
+
+  import Select from 'ol/interaction/Select';
+  import {click} from 'ol/events/condition';
+
+  import XYZ from 'ol/source/XYZ';
+
+  import {apply} from 'ol-mapbox-style';
+
+  apply('map',
+        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=pk.eyJ1IjoibWFwZXNiYXNlc2lndGUiLCJhIjoiY2s2Y2F4YnB5MDk4ZjNvb21rcWEzMHZ4NCJ9.oVtnggRtmtUL7GBav8Kstg'
+        ).then(function(map){
+          var markerStyle = new Style({
+            image: new CircleStyle({
+              radius: 7,
+              fill: new Fill({color: 'red'}),
+              stroke: new Stroke({color: 'white', width: 3})
+            })
+          });
+
+          var layer = new VectorLayer({
+          source: new VectorSource({
+             features: [
+                 new Feature({
+                     geometry: new Point(new fromLonLat([2.8, 41.9]))
+                 })
+             ]
+          }),
+          style: markerStyle
+          });
+
+          map.addLayer(layer);
+          map.getView().setCenter(fromLonLat([2.8, 41.9]));
+        });
