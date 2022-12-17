@@ -337,3 +337,58 @@ Just a simple example:
           map.addLayer(layer);
           map.getView().setCenter(fromLonLat([2.8, 41.9]));
         });
+
+ICGC VectorTile Layers (ContextMaps)
+======================================================
+
+ICGC has developed ContextMaps, based on VectorTiles technology. It offer's the possibility to load base layers with some predefined styles.
+The data source for this layers is OSM but also ICGC data.
+
+All styles can also be customized, using the ContextMaps editor.
+
+We can upload a ContextMaps layer to OpenLayers as we did with Mapbox vector layers:
+
+.. code-block:: javascript
+
+  import './style.css';
+  import {Map, View} from 'ol';
+  import TileLayer from 'ol/layer/Tile';
+  import OSM from 'ol/source/OSM';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Fill from 'ol/style/Fill';
+  import Circle from 'ol/geom/Circle';
+  import CircleStyle from 'ol/style/Circle';
+  import VectorLayer from 'ol/layer/Vector';
+  import VectorSource from 'ol/source/Vector';
+  import Point from 'ol/geom/Point';
+  import Feature from 'ol/Feature';
+  import * as olProj from 'ol/proj';
+  import {fromLonLat} from 'ol/proj';
+
+  import Select from 'ol/interaction/Select';
+  import {click} from 'ol/events/condition';
+
+  import XYZ from 'ol/source/XYZ';
+
+  import {apply} from 'ol-mapbox-style';
+
+  apply('map',
+        'https://geoserveis.icgc.cat/contextmaps/icgc_espais_protegits_gris.json'
+        ).then(function(map){
+
+        });
+
+
+You'll find all predefined styles, also with ContextMaps documentation, at this link: https://openicgc.github.io/
+
+
+Customize styles with ContextMaps
+----------------------------------
+
+Using ContextMaps, you can creat your own style (**Fes el teu propi estil**) using the interactive tools.
+
+When a style is modifed, click on **Visor** tab and then on **Actualitzar el mapa**. A link is generated, and can be added to OpenLayers to change the basemap.
+
+.. note::
+   Maputnik is available for advance editing options. When a style is created with Maputnik, it's not possible to upload again to ContextMaps, and you'll need to host your json file.
