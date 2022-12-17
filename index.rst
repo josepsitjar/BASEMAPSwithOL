@@ -276,7 +276,7 @@ Then use the following code:
   import {apply} from 'ol-mapbox-style';
 
   apply('map',
-        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=pk.eyJ1IjoibWFwZXNiYXNlc2lndGUiLCJhIjoiY2s2Y2F4YnB5MDk4ZjNvb21rcWEzMHZ4NCJ9.oVtnggRtmtUL7GBav8Kstg'
+        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=YourToken'
         ).then(function(map){
 
         });
@@ -313,7 +313,7 @@ Just a simple example:
   import {apply} from 'ol-mapbox-style';
 
   apply('map',
-        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=pk.eyJ1IjoibWFwZXNiYXNlc2lndGUiLCJhIjoiY2s2Y2F4YnB5MDk4ZjNvb21rcWEzMHZ4NCJ9.oVtnggRtmtUL7GBav8Kstg'
+        'https://api.mapbox.com/styles/v1/mapbox/bright-v9?access_token=YourToken'
         ).then(function(map){
           var markerStyle = new Style({
             image: new CircleStyle({
