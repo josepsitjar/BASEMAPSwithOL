@@ -147,11 +147,12 @@ We can add multiple layers to OpenLayers. For example, a marker, and apply later
   });
   map.addLayer(layer);
 
+
 Adding interaction
 ====================
 
 
-In order to add interaction, for example, when select the marker, import ``Select`` and ``click``:
+In order to add interaction, for example, when selecting the marker, import ``Select`` and ``click``:
 
 .. code-block:: javascript
 
@@ -178,3 +179,56 @@ And, at the end of the document, add the interaction:
   });
 
   map.addInteraction(selectInteraction);
+
+
+Mapbox Base Layers (Raster Tiles)
+=================================
+
+There are lots of predefined styles at Mapbox ready to use as base cartography for your webmapp applications.
+
+In order to use this styles, is necessary a **Token**, that can be obtained after register to the Mapbox website. When logged to the platform, create a Token and use the **Default public token**.
+
+The javascript code to create a variable with the XYZ openlayers constructor is:
+
+.. code-block:: javascript
+
+  // import XYZ
+  import XYZ from 'ol/source/XYZ';
+
+  var mapboxLayer = new XYZ({
+    attributions: 'mapbox',
+    url: 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}?access_token=yourToken',
+    maxZoom: 20,
+    crossOrigin: '',
+  });
+
+And change, on the *map* variable, the reference to the layer:
+
+.. code-block:: javascript
+
+  const map = new Map({
+    target: 'map',
+    layers: [
+      /*
+      new TileLayer({
+        source: new OSM()
+      })
+      */
+      new TileLayer({
+        source:mapboxLayer
+      })
+    ],
+    view: new View({
+      center: [0, 0],
+      zoom: 2
+    })
+  });
+
+In this example, we are using the **streets-v11** Mapbox layer. But we cal use others, as *light*
+
+
+.. code-block:: javascript
+
+  url: 'https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}?access_token=yourToken',
+
+Or others available at: https://docs.mapbox.com/api/maps/styles/
